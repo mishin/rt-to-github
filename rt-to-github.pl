@@ -282,9 +282,12 @@ A script to copy tickets form rt.cpan.org to github.com
 
 rt-to-github.pl [options]
 
-    --dry-run | -d        dry run mode, will just print subject and comment lengths
-    --rt-dist | -r <dist> RT dist to migrate tickets from, can be supplied multiple times
-    --id      | -i <id>   specific RT ticket id, can be supplied multiple times
+    --dry-run | -d        dry run mode, will just print subject and comment
+                          lengths
+    --rt-dist | -r <dist> RT dist to migrate tickets from, can be supplied
+                          multiple times
+    --id      | -i <id>   specific RT ticket id, can be supplied multiple
+                          times
     --comment             add comment to RT ticket showing github location
     --no-prompt           use values in .git/config and ~/.pause
     --help    | -h        this help
@@ -298,10 +301,12 @@ for the CGI.pm perl module to github, so it should work for you.
 The script does its best to copy all content from tickets, but there are some caveats:
 
     - No attachements will be copied
-    - Original author data and timestamps will not be reflected in the new issue
-    - That is to say, they will be included as part of the comments on the issue
-      but the issue author/timestamp will be your github user details and the time
-      this script copied the issue
+    - Original author data and timestamps will not be reflected in the new
+      issue
+    - That is to say, they will be included as part of the comments on the
+      issue
+      but the issue author/timestamp will be your github user details and
+      the time this script copied the issue
 
 You can run the script with --dry-run as a first sanity check. If no information is
 supplied on the command line you will be prompted for it. You will need to add the
