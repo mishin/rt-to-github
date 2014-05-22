@@ -164,13 +164,17 @@ sub copy_tickets_to_github {
         }
 
         if ( ! $dry_run ) {
-            $ticket->comment(
-                message => "This issue has been copied to: "
-                    . $isu->{html_url}
-                    . " please take all future correspondence there.\n"
-                    . " This ticket will remain open but please do not reply here.\n"
-                    . " This ticket will be closed when the github issue is dealt with."
-            );
+			try {
+				$ticket->comment(
+					message => "This issue has been copied to: "
+						. $isu->{html_url}
+						. " please take all future correspondence there.\n"
+						. " This ticket will remain open but please do not reply here.\n"
+						. " This ticket will be closed when the github issue is dealt with."
+				);
+			} catch {
+				warn $_;
+			};
             warn "ticket #$id ($subject) copied to github";
         }
     }
