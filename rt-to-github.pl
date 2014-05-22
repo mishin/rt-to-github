@@ -304,9 +304,8 @@ The script does its best to copy all content from tickets, but there are some ca
     - Original author data and timestamps will not be reflected in the new
       issue
     - That is to say, they will be included as part of the comments on the
-      issue
-      but the issue author/timestamp will be your github user details and
-      the time this script copied the issue
+      issue but the issue author/timestamp will be your github user details
+      and the time this script copied the issue
 
 You can run the script with --dry-run as a first sanity check. If no information is
 supplied on the command line you will be prompted for it. You will need to add the
