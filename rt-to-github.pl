@@ -74,7 +74,7 @@ sub get_rt_tickets {
         password => $rt_password
     ) || croak( "Couldn't log into RT: $_" );
 
-    my @rt_tickets = @{ $ids } ? @{ $ids } : $rt->search(
+    my @rt_tickets = @{ $ids // [] } ? @{ $ids } : $rt->search(
         type  => 'ticket',
         query => qq{
             Queue = '$rt_dist'
