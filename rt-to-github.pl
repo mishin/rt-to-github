@@ -144,7 +144,11 @@ sub copy_tickets_to_github {
         if ( $dry_run ) {
             warn dump (\%issue);
         } else {
-            $isu = $gh_issue->create_issue(\%issue);
+			try {
+            	$isu = $gh_issue->create_issue(\%issue);
+			} catch {
+				warn "Problemt with create_issue (RT #$id): $_";
+			};
         }
 
         while (my $tx = $iterator->()) {
