@@ -34,7 +34,7 @@ GetOptions(
 pod2usage( 0 ) if $opts{'help'};
 
 my ( $gh,@gh_issues )  = get_gh_issues( $opts{'no-prompt'} );
-say scalar( @gh_issues ) . " existing issues on github";
+say scalar( @gh_issues ) . " issues already migrated from RT";
 
 my ( $rt,@rt_tickets ) = get_rt_tickets( $opts{'no-prompt'},$opts{'rt-dist'},$opts{'id'} );
 say scalar( @rt_tickets ) . " issues on RT";
@@ -68,24 +68,24 @@ sub get_gh_issues {
     my $gh_issue = $gh->issue;
 
     # see which tickets we already have on the github side
-    my @gh_issues =
-        map { /\[rt\.cpan\.org #(\d+)\]/ }
-        map { $_->{title} }
-        $gh_issue->repos_issues(
-            $github_repo_owner, $github_repo, { state => 'open' }
-        );
+    my @open_github_issues = $gh_issue->repos_issues(
+        $github_repo_owner, $github_repo, { state => 'open' }
+    );
 
     # repos_issues will only return 30 issues, need to check if
     # there are more and keep going until we have them all
     while ( $gh_issue->has_next_page ) {
 
-        my @next_page =
-            map { /\[rt\.cpan\.org #(\d+)\]/ }
-            map { $_->{title} }
-            $gh_issue->next_page;
-
-        push( @gh_issues,@next_page );
+        my @next_page = $gh_issue->next_page;
+        push( @open_github_issues,@next_page );
     }
+
+    my @gh_issues =
+        map { /\[rt\.cpan\.org #(\d+)\]/ }
+        map { $_->{title} }
+        @open_github_issues;
+
+    say scalar( @open_github_issues ) . " open github issues + pull requests";
 
     return ( $gh,@gh_issues );
 }
