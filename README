@@ -1,66 +1,9 @@
-rt-to-github.pl
-    A script to copy tickets form rt.cpan.org to github.com
+This was a script to migrate RT tickets to GH issues. Dave Golden has a new
+and improved version, which i would recommend over my implementation so have
+git rm'd my script[1]. For Dave Golden's script see:
 
-SYNOPSIS
-    rt-to-github.pl [options]
+ * https://github.com/dagolden/zzz-rt-to-github
+ * http://www.dagolden.com/index.php/2397/moving-cpan-rt-tickets-to-github-now-improved/
 
-        --dry-run | -d        dry run mode, will just print subject and comment
-                              lengths
-        --rt-dist | -r <dist> RT dist to migrate tickets from, can be supplied
-                              multiple times
-        --id      | -i <id>   specific RT ticket id, can be supplied multiple
-                              times
-        --comment             add comment to RT ticket showing github location
-        --no-prompt           use values in .git/config and ~/.pause
-        --help    | -h        this help
-
-DESCRIPTION
-    This script will allow you to mass copy rt.cpan.org issues to issues in
-    a github repo. It was used to successfully copy 89 of issues from two
-    different RT distributions for the CGI.pm perl module to github, so it
-    should work for you.
-
-    The script does its best to copy all content from tickets, but there are
-    some caveats:
-
-        - No attachements will be copied
-        - Original author data and timestamps will not be reflected in the new
-          issue
-        - That is to say, they will be included as part of the comments on the
-          issue but the issue author/timestamp will be your github user details
-          and the time this script copied the issue
-
-    You can run the script with --dry-run as a first sanity check. If no
-    information is supplied on the command line you will be prompted for it.
-    You will need to add the following to the .git/config file in the
-    git[hub] repo you are copying tickets to:
-
-        [github]
-            user = <your github user name>
-            token = <your github API token>
-
-    You can create a ~/.pause file to get the PAUSE login details, it should
-    look like:
-
-        user <your PAUSE user name>
-        password <your PAUSE password>
-
-    You will still be prompted for the information on the command line, so
-    to make the script use the values defined in the above files supply
-    --no-prompt
-
-    To add a comment to the existing RT ticket(s) supply the --comment
-    options - this will add a comment explaining that the ticket has been
-    copied to github, with the url, and asking to send future correspondence
-    there. The existing ticket will not be closed, but the comment will
-    state that the RT ticket will be closed when the github issue is.
-
-CREDITS
-    initial script sourced from: https://gist.github.com/markstos/5096483
-
-    raison d'être: https://github.com/leejo/CGI.pm/issues/1
-
-BUGS
-    Please raise a github issue:
-    https://github.com/leejo/rt-to-github/issues
-
+[1] You can still get to the script in this repo by git cloning and then a
+git checkout fa311bce986eeef2c844659ee9d36e50364e361c
